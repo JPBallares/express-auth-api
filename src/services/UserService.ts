@@ -18,3 +18,11 @@ export const createUser = async (user: IUser) => {
         throw new BaseError('EncryptionError', 500, true, e.message);
     }
 };
+
+export const getAllUsers = async () => {
+    try {
+        return await User.find().select(['email']);
+    } catch (e: any) {
+        throw new BaseError('EncryptionError', 500, true, e.message);
+    }
+};

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
-import { JWT_SECRET, SALT } from '../config/constants';
 
+import { JWT_SECRET, SALT } from '../config/constants';
 import NotFound from '../exceptions/NotFound';
 import Unauthorized from '../exceptions/Unauthorized';
 import User, { IUser } from '../models/User';

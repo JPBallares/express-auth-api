@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 
-import BaseError from '../exceptions/BaseError';
 import User, { IUser } from '../models/User';
 
 const SALT = 12;
@@ -16,9 +15,5 @@ export const createUser = async (user: IUser) => {
 };
 
 export const getAllUsers = async () => {
-    try {
-        return await User.find().select(['email']);
-    } catch (e: any) {
-        throw new BaseError('EncryptionError', 500, true, e.message);
-    }
+    return await User.find().select(['email']);
 };

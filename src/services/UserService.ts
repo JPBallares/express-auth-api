@@ -9,7 +9,11 @@ const SALT = 12;
 const JWT_SECRET = process.env.JWT_SECRET || '';
 
 export const getAllUsers = async () => {
-    return await User.find().select(['email']);
+    return await User.find().select('-password');
+};
+
+export const getUser = async (userId: string) => {
+    return await User.findById(userId).select('-password');
 };
 
 export const createUser = async (user: IUser) => {
@@ -49,7 +53,7 @@ export const verifyToken = async (token?: string) => {
         throw new Unauthorized('Access token expired');
     }
     
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id).select('-password');
     if (!user) {
         throw new NotFound('User is not found');
     }

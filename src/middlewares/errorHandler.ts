@@ -4,7 +4,7 @@ import { MongoError } from 'mongodb';
 // Error handling middleware
 const  errorHandler = async (err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof MongoError && err.code === 11000) {
-    // Duplicate key error
+        // Duplicate key error
         return res.status(400).json({ message: 'Duplicate key error' });
     }
 

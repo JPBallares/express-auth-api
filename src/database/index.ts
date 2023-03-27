@@ -12,7 +12,7 @@ const dbPass = process.env.DB_PASS || '';
 const connectionString = `${dbScheme}://${dbUser}:${dbPass}@${dbUrl}/?retryWrites=true&w=majority`;
 
 // Create a new Mongoose connection to the MongoDB instance
-mongoose.connect(connectionString, {dbName});
+mongoose.connect(connectionString, { dbName });
 
 // Get the default connection
 export default mongoose.connection;

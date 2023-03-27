@@ -1,14 +1,13 @@
 {
     "env": {
-        "es2021": true,
+        "es2022": true,
         "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -38,9 +37,28 @@
         "import/order": [
             "error",
             {
-              "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-              "newlines-between": "always"
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index"
+                ],
+                "newlines-between": "always"
             }
-          ]          
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 1,
+                "maxBOF": 0
+            }
+        ]
     }
 }

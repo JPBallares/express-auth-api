@@ -1,12 +1,10 @@
 import bcrypt from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
+import { JWT_SECRET, SALT } from '../config/constants';
 
 import NotFound from '../exceptions/NotFound';
 import Unauthorized from '../exceptions/Unauthorized';
 import User, { IUser } from '../models/User';
-
-const SALT = 12;
-const JWT_SECRET = process.env.JWT_SECRET || '';
 
 export const getAllUsers = async () => {
     return await User.find().select('-password');

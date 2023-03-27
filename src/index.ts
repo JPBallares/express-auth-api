@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 import database from './database';
 import userRoute from './controllers/UserController';
+import errorHandler from './middlewares/errorHandler';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(`${apiPath}/users`, userRoute);
+
+app.use(errorHandler);
 
 database.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

@@ -1,20 +1,20 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 
 import { IUser } from '../models/User';
 import { createUser, getAllUsers } from '../services/UserService';
 
 const userRoute = express.Router();
 
-userRoute.get('/', async (req:Request, res: Response) => {
+userRoute.get('/', async (req:Request, res: Response, next: NextFunction) => {
     try {
         const users = await getAllUsers();
         res.status(200).send(users);
-    } catch (e: any) {
-        res.status(500).json({ error: e.message });
+    } catch (e) {
+        next(e);
     }
 });
 
-userRoute.post('/', async (req: Request, res: Response) => {
+userRoute.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {email, password}: IUser = req.body;
         const user = await createUser({
@@ -22,8 +22,8 @@ userRoute.post('/', async (req: Request, res: Response) => {
             password,
         } as IUser);
         res.status(201).send(user);
-    } catch (e: any) {
-        res.status(500).json({ error: e.message });
+    } catch (e) {
+        next(e);
     }
 });
 

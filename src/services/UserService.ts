@@ -45,7 +45,7 @@ export const verifyToken = async (token?: string) => {
     if (!decoded) {
         throw new Unauthorized('Invalid access token');
     }
-    if (Date.now() / 1000 >  decoded.exp) {
+    if (Date.now() / 1000 > decoded.exp) {
         throw new Unauthorized('Access token expired');
     }
     

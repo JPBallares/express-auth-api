@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import Unauthorized from '../exceptions/Unauthorized';
 import { verifyToken } from '../services/UserService';
 
+// add this middleware to routes to block access to unauthorized users
 const authHandler = async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.header('Authorization');
 

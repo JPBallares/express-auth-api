@@ -59,6 +59,12 @@
                 "maxEOF": 1,
                 "maxBOF": 0
             }
-        ]
+        ],
+        "no-multi-spaces": ["error", {
+            "ignoreEOLComments": true,
+            "exceptions": {
+              "VariableDeclarator": true
+            }
+        }]
     }
 }

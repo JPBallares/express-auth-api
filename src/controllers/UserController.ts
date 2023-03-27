@@ -12,7 +12,7 @@ userRoute.get('/', errorHandlerWrapper(authHandler), errorHandlerWrapper(async (
     res.status(200).send(users);
 }));
 
-userRoute.post('/', errorHandlerWrapper(async (req: Request, res: Response,  next: NextFunction) => {
+userRoute.post('/', errorHandlerWrapper(async (req: Request, res: Response, next: NextFunction) => {
     const param: IUser = req.body;
     const user = await createUser(param);
     res.status(201).send(user);

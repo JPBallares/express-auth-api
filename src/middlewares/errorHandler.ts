@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import { JsonWebTokenError } from 'jsonwebtoken';
 import { MongoError } from 'mongodb';
+
+import BaseError from '../exceptions/BaseError';
 
 // Error handling middleware
 const  errorHandler = async (err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +11,16 @@ const  errorHandler = async (err: Error, req: Request, res: Response, next: Next
         return res.status(400).json({ message: 'Duplicate key error' });
     }
 
+    if (err instanceof JsonWebTokenError) {
+        return res.status(401).json({ message: err.message });
+    }
+
+    if (err instanceof BaseError) {
+        return res.status(err.statusCode).json({ message: err.message });
+    }
+
     // Handle other errors
+    console.log(err);
     return res.status(500).json({ message: 'Internal server error' });
 };
 
@@ -21,7 +33,6 @@ const asyncWrapper = (fn: any) => {
   
 // This will automatically handle the error without calling next
 export const errorHandlerWrapper = (fn: any) => {
-    console.log(fn.constructor.name);
     if (fn.constructor.name === 'AsyncFunction') return asyncWrapper(fn);
     return fn;
 };

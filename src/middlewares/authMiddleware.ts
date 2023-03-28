@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import Unauthorized from '../exceptions/Unauthorized';
-import { verifyToken } from '../services/UserService';
+import { getUserFromToken } from '../services/authService';
 
 // add this middleware to routes to block access to unauthorized users
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +12,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
     }
 
     const token = authHeader.replace('Bearer ', '');
-    const user = await verifyToken(token);
+    const user = await getUserFromToken(token);
 
     req.body.user = user;
     next();

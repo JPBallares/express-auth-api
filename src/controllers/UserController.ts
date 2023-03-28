@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express';
 
+import { IUserCreateRequest } from '../interfaces';
 import authMiddleware from '../middlewares/authMiddleware';
 import { errorHandlerWrapper } from '../middlewares/errorHandler';
 import { IUser } from '../models/User';
-import { generateToken, createUser, getAllUsers, getUser } from '../services/UserService';
+import { createUser, getAllUsers, getUser } from '../services/userService';
 
 const userRoute = express.Router();
 
@@ -13,8 +14,8 @@ userRoute.get('/', errorHandlerWrapper(authMiddleware), errorHandlerWrapper(asyn
 }));
 
 userRoute.post('/', errorHandlerWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const param: IUser = req.body;
-    const user = await createUser(param);
+    const param: IUserCreateRequest = req.body;
+    const user = await createUser(param as IUser);
     res.status(201).send(user);
 }));
 
@@ -26,12 +27,6 @@ userRoute.get('/:id', errorHandlerWrapper(authMiddleware), errorHandlerWrapper(a
     }
     
     res.send(await getUser(userId));
-}));
-
-userRoute.post('/tokens', errorHandlerWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const param: IUser = req.body;
-    const token = await generateToken(param);
-    res.status(200).send({ token });
 }));
 
 export default userRoute;

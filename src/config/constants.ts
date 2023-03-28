@@ -18,3 +18,4 @@ export const CONNECTION_STRING = `${DB_SCHEME}://${DB_USER}:${DB_PASS}@${DB_URL}
 export const SALT = 12;
 // Authentication
 export const JWT_SECRET = process.env.JWT_SECRET || '';
+export const REFRESH_SECRET = process.env.REFRESH_SECRET || '';

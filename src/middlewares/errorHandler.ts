@@ -15,7 +15,13 @@ const errorHandler = async (err: Error, req: Request, res: Response, next: NextF
         return res.status(401).json({ message: err.message });
     }
 
+    if (err instanceof SyntaxError && err.message.includes('Unexpected token')) {
+        // handle invalid JSON format from request body
+        return res.status(400).json({ message: err.message });
+    }
+
     if (err instanceof BaseError) {
+        // error generated from our code
         return res.status(err.statusCode).json({ message: err.message });
     }
 
